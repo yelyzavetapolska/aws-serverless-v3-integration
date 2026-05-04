@@ -32,7 +32,7 @@ module.exports.main = async (event) => {
             statusCode: 200,
             headers: { "Content-Type": "text/html; charset=utf-8" },
             body: `
-                <h1>Успешный деплой через SLS v3!</h1>
+                <h1>Successful deployment via SLS v3!</h1>
                 <p>Файл sls-note-${id}.txt создан в S3.</p>
                 <h3>History from DynamoDB:</h3>
                 <ul>${history}</ul>

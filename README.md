@@ -13,5 +13,5 @@ When the API endpoint is triggered:
 * `serverless.yml`: Infrastructure as Code (IaC) configuration, including IAM roles and AWS resource definitions.
 * `handler.js`: The core logic of the application using AWS SDK v3.
 
-## 🔗 Live Demo
+## Live Demo
 You can test the live API here: [https://tqc0zrq9o9.execute-api.us-east-1.amazonaws.com/dev/](https://tqc0zrq9o9.execute-api.us-east-1.amazonaws.com/dev/)
