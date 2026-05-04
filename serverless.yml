@@ -1,0 +1,48 @@
+service: aws-sls-classic
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:Scan
+          Resource: !GetAtt MyTable.Arn
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:ListBucket
+          Resource:
+            - !GetAtt MyBucket.Arn
+            - !Join ["", [!GetAtt MyBucket.Arn, "/*"]]
+
+functions:
+  mainHandler:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: get
+
+resources:
+  Resources:
+    MyTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: SLS-History-Table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    MyBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: my-sls-unique-storage-yp
